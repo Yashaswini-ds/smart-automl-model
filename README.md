@@ -49,3 +49,35 @@ import joblib
 
 model = joblib.load("best_model.pkl")
 prediction = model.predict(input_data)
+
+Installation
+pip install -r requirements.txt
+
+Integration setup
+## 🌐 Integration (Web & App)
+
+### 🔹 Using in a Web Application (Flask)
+
+You can integrate the trained model into a backend API:
+
+```python
+from flask import Flask, request, jsonify
+import joblib
+import numpy as np
+
+app = Flask(__name__)
+
+model = joblib.load("best_model.pkl")
+
+@app.route("/predict", methods=["POST"])
+def predict():
+    data = request.json["features"]
+    prediction = model.predict([data])
+    return jsonify({"prediction": int(prediction[0])})
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+    {
+  "features": [values_here]
+}
